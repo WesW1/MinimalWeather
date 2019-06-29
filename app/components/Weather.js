@@ -3,7 +3,7 @@ import { WiCloudy, WiDaySunny, WiRain, WiThunderstorm, WiFog, WiNightCloudy, WiS
 
 
 
-var dictionary = {
+var weatherIcons = {
   2: <WiThunderstorm color="rgb(140, 22, 134)" size={300}/>,
   3: <WiRaindrops color="rgb(140, 22, 134)" size={300}/>,
   5: <WiRain color="rgb(140, 22, 134)" size={300}/>,
@@ -12,17 +12,20 @@ var dictionary = {
   8: <WiDaySunny color="rgb(140, 22, 134)" size={300}/>,
 }
 
-var ID;
-
-
 class Weather extends React.Component {
   constructor(props){
     super(props)
 
     console.log(this.props)
+
+    this.determineWeatherID = this.determineWeatherID.bind(this)
   }
 
+  determineWeatherID(id) {
+    console.log(id)
 
+    return weatherIcons[2]
+  }
 
 
 
@@ -30,10 +33,8 @@ class Weather extends React.Component {
     return (
       <React.Fragment>
 
-        {dictionary[Math.floor(this.props.data["id"]/100)]}
-        <ul>
-          <li>{this.props.data.description}</li>
-        </ul>
+        {weatherIcons[this.props.id]}
+
       </React.Fragment>
     )
   }

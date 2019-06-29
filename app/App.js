@@ -69,8 +69,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <div style = {{backgroundImage: "url("+this.state.background+")"}}>
-        <pre>The city is {this.state.selectedCity}</pre>
+      <div style = {{backgroundColor: "red"}}>
+        <div>
+
+          <Weather
+            id={this.state.weatherReport? this.state.weatherReport.weather[0]["id"] : 3}
+            />
+
+        </div>
         <br />
         <input
           type='text'
@@ -79,13 +85,7 @@ class App extends React.Component {
           onChange={this.handleChange}
         />
         <button onClick={this.handleSubmit}>Submit</button>
-        <div>
 
-          {this.state.weatherReport && <Weather
-            data={this.state.weatherReport.weather[0]}
-            changeBackground={this.onChangeParentBackground}/>}
-
-        </div>
       </div>
     )
   }
