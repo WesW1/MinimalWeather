@@ -2,20 +2,8 @@ import React from 'react';
 import './App.css';
 import { fetchWeather } from './util/api.js'
 import Weather from './components/Weather.js'
-import cloudy from './resources/backgrounds/cloudy.jpg'
-import mist from './resources/backgrounds/mist.jpg'
-import rain from './resources/backgrounds/rain.jpg'
-import sunny from './resources/backgrounds/sunny.jpg'
-import thunder from './resources/backgrounds/thunder.jpg'
 
 
-var weatherBackgrounds = {
-  '1': cloudy,
-  '2': mist,
-  '3': rain,
-  '4': sunny,
-  '5': thunder
-}
 
 class App extends React.Component {
   constructor(props) {
@@ -25,7 +13,6 @@ class App extends React.Component {
       selectedCity: '',
       weatherReport: null,
       error: null,
-      background: null
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
@@ -55,9 +42,10 @@ class App extends React.Component {
 
   handleChange(event) {
     this.setState({
-      selectedCity: event.target.value
+      selectedCity: event.target.value,
     })
   }
+
 
   computeWeatherID() {
     return (
@@ -69,7 +57,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div style = {{backgroundColor: "red"}}>
+      <div style = {{backgroundColor: "pink"}}>
         <div>
           <Weather id={this.computeWeatherID()} />
         </div>
