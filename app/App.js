@@ -30,7 +30,7 @@ class App extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.onChangeParentBackground = this.onChangeParentBackground.bind(this)
+    this.computeWeatherID = this.computeWeatherID.bind(this)
   }
 
   handleSubmit (event) {
@@ -59,23 +59,19 @@ class App extends React.Component {
     })
   }
 
-  //Takes an object that contains a picture and attaches that picture
-  //to the backgorund.
-  onChangeParentBackground(backgroundImage){
-    this.setState({
-      background: backgroundImage
-    })
+  computeWeatherID() {
+    return (
+      this.state.weatherReport
+        ? Math.floor(this.state.weatherReport.weather[0]["id"] / 100)
+        : 1
+      )
   }
 
   render() {
     return (
       <div style = {{backgroundColor: "red"}}>
         <div>
-
-          <Weather
-            id={this.state.weatherReport? this.state.weatherReport.weather[0]["id"] : 3}
-            />
-
+          <Weather id={this.computeWeatherID()} />
         </div>
         <br />
         <input
