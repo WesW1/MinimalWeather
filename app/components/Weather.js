@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { WiCloudy, WiDaySunny, WiRain, WiThunderstorm, WiFog, WiNightCloudy, WiSnow, WiRaindrops, WiMoonAltFull, WiAlien } from 'react-icons/wi'
+import { WiDegrees } from 'react-icons/wi'
 import {useSpring, animated, useTransition} from 'react-spring';
 import {Transition} from 'react-spring/renderprops';
 
@@ -23,6 +24,12 @@ export default function Weather(props){
   return (
       <React.Fragment>
         <WeatherIcon size={300} color="rgb(140, 22, 134)" />
+
+        <ul class="weather-description">
+          <li>69°F</li>
+          <li> props.description </li>
+        </ul>
+
       </React.Fragment>
     );
 
