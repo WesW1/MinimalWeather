@@ -34,3 +34,19 @@ body {
   transform: translate(-50%, -50%)
 
 }
+
+button {
+  background-color: rgb(150, 69, 100);
+  border: none;
+  color: white;
+  text-decoration: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+input[type=text] {
+  background-color: rgb(150, 69, 100);
+  color: white;
+  padding: 5px;
+  border: 1px;
+}
