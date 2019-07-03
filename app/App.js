@@ -34,7 +34,8 @@ class App extends React.Component {
         console.warn('Error fetching weather: ', error)
 
         this.setState({
-          error: 'there was an error fetching the weather'
+          error: 'there was an error fetching the weather',
+          weatherReport: null
         })
       })
       console.log(JSON.stringify(this.state))
@@ -49,15 +50,15 @@ class App extends React.Component {
 
   computeWeatherID() {
     return (
-      this.state.weatherReport
-        ? Math.floor(this.state.weatherReport.weather[0]["id"] / 100)
-        : 1
+      this.state.weatherReport === null
+        ? 1
+        : Math.floor(this.state.weatherReport.weather[0]["id"] / 100)
       )
   }
 
   render() {
     return (
-      <div style = {{backgroundColor: "pink"}}>
+      <div className = "container">
         <div>
           <Weather id={this.computeWeatherID()} />
         </div>
