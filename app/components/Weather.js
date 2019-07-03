@@ -25,10 +25,14 @@ export default function Weather(props){
       <React.Fragment>
         <WeatherIcon size={300} color="rgb(140, 22, 134)" />
 
-        <ul class="weather-description">
-          <li>69°F</li>
-          <li> props.description </li>
-        </ul>
+        {props.id === 1 ?
+              null
+              :
+              <div className="weather-description">
+                <p>69°F</p>
+                <p>props.description</p>
+              </div>  }
+
 
       </React.Fragment>
     );
