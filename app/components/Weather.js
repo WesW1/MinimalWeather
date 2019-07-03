@@ -23,7 +23,7 @@ export default function Weather(props){
 
   return (
       <React.Fragment>
-        <WeatherIcon size={300} color="rgb(140, 22, 134)" />
+        <WeatherIcon size={300} color="rgb(150, 69, 100)" />
 
         {props.id === 1 ?
               null
