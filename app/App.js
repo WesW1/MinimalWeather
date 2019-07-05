@@ -94,7 +94,7 @@ class App extends React.Component {
 
     if (weatherReport !== null){
       if (weatherReport.cod !== "404"){
-        temperature = this.fahrenheitToKelvin(weatherReport.main.temp)
+        temperature = this.fahrenheitToKelvin(weatherReport.main.temp) + '°F'
       }
       else { temperature = "404"; }
     }
@@ -114,18 +114,19 @@ class App extends React.Component {
               id={this.computeWeatherID()}
               description={this.getDescription()}
               temperature ={this.getTemperature()}/>
-
         }
 
         </div>
         <br />
-        <input
-          type='text'
-          placeholder='city'
-          value={this.state.selectedCity}
-          onChange={this.handleChange}
-        />
-        <button onClick={this.handleSubmit}>Submit</button>
+        <div className = "input-container">
+          <input
+            type='text'
+            placeholder='city'
+            value={this.state.selectedCity}
+            onChange={this.handleChange}
+          />
+          <button onClick={this.handleSubmit}>Submit</button>
+        </div>
 
       </div>
     )
