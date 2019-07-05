@@ -12,12 +12,15 @@ class App extends React.Component {
     this.state = {
       selectedCity: '',
       weatherReport: null,
-      error: null,
+      error: null
     }
 
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.computeWeatherID = this.computeWeatherID.bind(this)
+    this.getDescription = this.getDescription.bind(this)
+    this.fahrenheitToKelvin = this.fahrenheitToKelvin.bind(this)
+    this.getTemperature = this.getTemperature.bind(this)
   }
 
   handleSubmit (event) {
@@ -26,19 +29,23 @@ class App extends React.Component {
         console.log(data)
 
         this.setState({
-          weatherReport: data
+          weatherReport: data,
+          error: null
         })
 
       })
       .catch((error) => {
         console.warn('Error fetching weather: ', error)
 
-        this.setState({
-          error: 'there was an error fetching the weather',
-          weatherReport: null
-        })
       })
       console.log(JSON.stringify(this.state))
+      if (this.state.weatherReport){
+        if (this.state.weatherReport.cod === "404"){
+          this.setState({
+            error: "code 404: error fetching weather"
+          })
+        }
+      }
   }
 
   handleChange(event) {
@@ -49,18 +56,67 @@ class App extends React.Component {
 
 
   computeWeatherID() {
-    return (
-      this.state.weatherReport === null
-        ? 1
-        : Math.floor(this.state.weatherReport.weather[0]["id"] / 100)
-      )
+    const { error, weatherReport }  = this.state;
+    let weatherID = 1;
+
+    if (weatherReport !== null){
+      if (weatherReport.cod !== "404"){
+        weatherID = Math.floor(weatherReport.weather[0]["id"] / 100)
+      }
+      else { weatherID = 404; }
+    }
+
+    return weatherID
+  }
+
+  getDescription() {
+    const { error, weatherReport }  = this.state;
+    let description = "";
+
+
+    if (weatherReport !== null){
+      if (weatherReport.cod !== "404"){
+        description = weatherReport.weather[0]["description"];
+      }
+      else { description = weatherReport.message; }
+    }
+
+    return description
+  }
+
+  fahrenheitToKelvin(temp) {
+    return (Math.floor((temp - 273.15) * (9/5) + 32 ))
+  }
+
+  getTemperature() {
+    const { error, weatherReport }  = this.state;
+    let temperature = "";
+
+    if (weatherReport !== null){
+      if (weatherReport.cod !== "404"){
+        temperature = this.fahrenheitToKelvin(weatherReport.main.temp)
+      }
+      else { temperature = "404"; }
+    }
+
+    return temperature
   }
 
   render() {
     return (
       <div className = "container">
         <div>
-          <Weather id={this.computeWeatherID()} />
+
+
+
+        {
+            <Weather
+              id={this.computeWeatherID()}
+              description={this.getDescription()}
+              temperature ={this.getTemperature()}/>
+
+        }
+
         </div>
         <br />
         <input

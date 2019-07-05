@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { WiCloudy, WiDaySunny, WiRain, WiThunderstorm, WiFog, WiNightCloudy, WiSnow, WiRaindrops, WiMoonAltFull, WiAlien } from 'react-icons/wi'
+import { WiNa, WiCloudy, WiDaySunny, WiRain, WiThunderstorm, WiFog, WiNightCloudy, WiSnow, WiMoonAltFull, WiAlien, WiRaindrops } from 'react-icons/wi'
 import { WiDegrees } from 'react-icons/wi'
 import {useSpring, animated, useTransition} from 'react-spring';
 import {Transition} from 'react-spring/renderprops';
@@ -13,6 +13,7 @@ var weatherIcons = {
   6: WiSnow,
   7: WiFog,
   8: WiDaySunny,
+  404: WiNa
 }
 
 
@@ -29,8 +30,8 @@ export default function Weather(props){
               null
               :
               <div className="weather-description">
-                <p>69°F</p>
-                <p>props.description</p>
+                <p>{props.temperature}°F</p>
+                <p>{props.description}</p>
               </div>  }
 
 
