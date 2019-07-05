@@ -18,7 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express":"*",
+    "express": "^4.17.1",
     "file-loader": "^4.0.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
