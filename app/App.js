@@ -24,6 +24,8 @@ class App extends React.Component {
   }
 
   handleSubmit (event) {
+    event.preventDefault();
+
     fetchWeather(this.state.selectedCity)
       .then((data) => {
         console.log(data)
@@ -118,15 +120,15 @@ class App extends React.Component {
 
         </div>
         <br />
-        <div className = "input-container">
+        <form className = "input-container" onSubmit={this.handleSubmit}>
           <input
             type='text'
             placeholder='city'
             value={this.state.selectedCity}
             onChange={this.handleChange}
           />
-          <button onClick={this.handleSubmit}>Submit</button>
-        </div>
+          <button type="submit">Submit</button>
+        </form>
 
       </div>
     )
