@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "webpack-dev-server",
     "lint": "eslint . --ext js",
+    "lint:fix": "eslint . --ext js --fix",
     "start": "node server.js",
     "heroku-postbuild": "webpack -p"
   },
