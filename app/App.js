@@ -14,10 +14,7 @@ class App extends React.Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.computeWeatherID = this.computeWeatherID.bind(this);
-    this.getDescription = this.getDescription.bind(this);
     this.fahrenheitToKelvin = this.fahrenheitToKelvin.bind(this);
-    this.getTemperature = this.getTemperature.bind(this);
   }
 
   handleSubmit(event) {
@@ -43,67 +40,63 @@ class App extends React.Component {
     });
   }
 
-  computeWeatherID() {
-    const { weatherReport } = this.state;
-    let weatherID = 1;
-
-    if (weatherReport !== null) {
-      if (weatherReport.cod !== '404') {
-        weatherID = Math.floor(weatherReport.weather[0]['id'] / 100);
-      } else {
-        weatherID = 404;
-      }
-    }
-
-    return weatherID;
-  }
-
-  getDescription() {
-    const { weatherReport } = this.state;
-    let description = '';
-
-    if (weatherReport !== null) {
-      if (weatherReport.cod !== '404') {
-        description = weatherReport.weather[0]['description'];
-      } else {
-        description = weatherReport.message;
-      }
-    }
-
-    return description;
-  }
-
   fahrenheitToKelvin(temp) {
     return Math.floor((temp - 273.15) * (9 / 5) + 32);
   }
 
-  getTemperature() {
+  get isValidWeatherCode() {
     const { weatherReport } = this.state;
-    let temperature = '';
 
-    if (weatherReport !== null) {
-      if (weatherReport.cod !== '404') {
-        temperature = this.fahrenheitToKelvin(weatherReport.main.temp) + '°F';
-      } else {
-        temperature = '404';
-      }
+    return weatherReport.cod !== '404';
+  }
+
+  get weatherId() {
+    const { weatherReport } = this.state;
+
+    if (!weatherReport) {
+      return 1;
+    }
+    if (!this.isValidWeatherCode) {
+      return 404;
     }
 
-    return temperature;
+    return Math.floor(weatherReport.weather[0]['id'] / 100);
+  }
+
+  get weatherDescription() {
+    const { weatherReport } = this.state;
+
+    if (!weatherReport) {
+      return '';
+    }
+    if (!this.isValidWeatherCode) {
+      return weatherReport.message;
+    }
+
+    return weatherReport.weather[0]['description'];
+  }
+
+  get weatherTemperature() {
+    const { weatherReport } = this.state;
+
+    if (!weatherReport) {
+      return '';
+    }
+    if (!this.isValidWeatherCode) {
+      return '404';
+    }
+
+    return this.fahrenheitToKelvin(weatherReport.main.temp) + '°F';
   }
 
   render() {
     return (
       <div className="container">
-        <div>
-          {
-            <Weather
-              id={this.computeWeatherID()}
-              description={this.getDescription()}
-              temperature={this.getTemperature()}
-            />
-          }
-        </div>
+        <Weather
+          id={this.weatherId}
+          description={this.weatherDescription}
+          temperature={this.weatherTemperature}
+        />
         <br />
         <form className="input-container" onSubmit={this.handleSubmit}>
           <input
